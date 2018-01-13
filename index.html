@@ -3,22 +3,28 @@
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
-    <script src='./components/gearvr-trigger.js'></script>
-    <script src='./components/cursor-trigger.js'></script>
+		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    
+    <script src='./components/controller_movement_new.js'></script>
   </head>
   <body>
     <a-scene >
       <a-assets>
         <img id='grid' src='./grid.png'>
-        <a-asset-item id='arch' src='./models/holoarch.dae'></a-asset-item>
-        <a-asset-item id='door' src='./models/door.dae'></a-asset-item>
+        <a-asset-item id='c-arch' src='./models/holoarch.dae'></a-asset-item>
+        <a-asset-item id='door' src='./models/door.gltf'></a-asset-item>
       </a-assets>
+      <a-entity log='max: 10;'
+                geometry="primitive: plane; height: 2; width: 5;" 
+                material='color: #000;' 
+                text="color: green;" 
+                position='0.75 5.5 -8'></a-entity>
 
 
       <a-entity 
-        gearvr-trigger
+        controller-movement
         raycaster='far: 100; showLine: true; objects: .clickable;' 
-        line='color: green;' 
+        line='color: blue;' 
         laser-controls></a-entity>
     
       <!-- Ceiling and Floor -->
@@ -66,23 +72,24 @@
                 scale 
                 visible></a-entity>     
         <!-- Arch -->   
-      <a-entity collada-model="#arch" 
+      <a-entity collada-model="#c-arch" 
                 scale="2 2 2" 
-                position="0 0 -9.8" 
+                position="-2.75 0 -9.8" 
                 rotation="" 
                 visible=""></a-entity>
 
-        <!-- Door -->
-      <a-entity collada-model="#door" 
-                scale="2.2 2.85 2" 
-                position="0.2 0 -9.6" 
+         <!--Door -->
+      <a-entity gltf-model-legacy="#door" 
+                scale="2.2 1.65 2" 
+                position="-2.4 0 -9.3" 
                 rotation="" 
                 visible=""></a-entity>
-             
 
-      <a-camera>
-        <a-cursor cursor-trigger raycaster='objects: .clickable'></a-cursor>
+      <a-camera move-test>
+        <a-cursor raycaster='objects: .clickable'></a-cursor>
       ≤/a-camera>
+      <a-light type='ambient' color='#fff'></a-light>
+
     
     </a-scene>
   </body>
