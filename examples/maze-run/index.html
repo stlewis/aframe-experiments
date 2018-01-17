@@ -8,7 +8,7 @@
     <script src='./components/universal-gearvr-controls.js'></script>
   </head>
   <body>
-    <a-scene maze-builder>
+    <a-scene physics='gravity: 0;' maze-builder>
       <a-assets>
       </a-assets>
       
@@ -21,9 +21,11 @@
          camera="userHeight: 1.6" 
          position='34.98 1.6 -3.65'  
          rotation='0 90 0'
-         universal-controls='movementControls: keyboard, touch, universal-gearvr;' 
+         universal-controls='movementControls: keyboard, gamepad, universal-gearvr;' 
          universal-gearvr-controls
-         kinematic-body></a-entity>
+         kinematic-body>
+        <a-cursor></a-cursor> 
+      </a-entity>
     
     </a-scene>
   </body>

@@ -29,6 +29,7 @@ AFRAME.registerComponent('universal-gearvr-controls', {
     sceneEl.addEventListener('axismove', this.onAxisMove);
     sceneEl.addEventListener('trackpadtouchstart', this.onTouchStart);
     sceneEl.addEventListener('trackpadtouchend', this.onTouchEnd);
+
   },
 
   removeEventListeners: function () {
@@ -37,6 +38,7 @@ AFRAME.registerComponent('universal-gearvr-controls', {
     sceneEl.removeEventListener('axismove', this.onAxisMove);
     sceneEl.removeEventListener('trackpadtouchstart', this.onTouchStart);
     sceneEl.removeEventListener('trackpadtouchend', this.onTouchEnd);
+
   },
 
   isVelocityActive: function () {
