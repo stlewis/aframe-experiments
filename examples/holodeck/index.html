@@ -5,7 +5,6 @@
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
     
-    <script src='./components/override-universal-controls.js'></script>
     <script src='./components/universal-gearvr-controls.js'></script>
   </head>
   <body>
@@ -33,6 +32,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position
                 scale 
+                static-body
                 visible></a-entity>     
 
       <a-entity geometry="primitive: plane; width: 30; height: 30;" 
@@ -40,6 +40,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position='0 10 0'
                 scale 
+                static-body
                 visible></a-entity>     
       <!-- Walls -->
         <!-- Front Wall -->
@@ -56,6 +57,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position='0 0 10'
                 scale 
+                static-body
                 visible></a-entity>     
         <!-- Right Wall -->
       <a-entity geometry="primitive: plane; width: 30; height: 30;" 
@@ -63,6 +65,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position='10 0 0'
                 scale 
+                static-body
                 visible></a-entity>     
         <!-- Left Wall -->
       <a-entity geometry="primitive: plane; width: 30; height: 30;" 
@@ -70,6 +73,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position='-10 0 0'
                 scale 
+                static-body
                 visible></a-entity>     
         <!-- Arch -->   
       <a-entity collada-model="#c-arch" 
@@ -85,11 +89,12 @@
                 rotation="" 
                 visible=""></a-entity>
 
-      <a-camera
-        override-universal-controls='movementControls: universal-gearvr, keyboard;'
-        universal-gearvr-controls
-      >
-      ≤/a-camera>
+      <a-entity 
+         id='scene-camera'
+         camera="userHeight: 1.6" 
+         universal-controls='movementControls: keyboard, touch, universal-gearvr;' 
+         universal-gearvr-controls
+         kinematic-body>
       <a-light type='ambient' color='#fff'></a-light>
 
     

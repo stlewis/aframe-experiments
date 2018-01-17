@@ -25,15 +25,15 @@ AFRAME.registerComponent('universal-gearvr-controls', {
   addEventListeners: function () {
     const sceneEl = this.el.sceneEl;
 
-    sceneEl.addEventListener('trackpaddown', this.onTouchStart);
-    sceneEl.addEventListener('trackpadup', this.onTouchEnd);
+    sceneEl.addEventListener('trackpadtouchstart', this.onTouchStart);
+    sceneEl.addEventListener('trackpadtouchend', this.onTouchEnd);
   },
 
   removeEventListeners: function () {
     const sceneEl = this.el.sceneEl;
 
-    sceneEl.removeEventListener('trackpaddown', this.onTouchStart);
-    sceneEl.removeEventListener('trackpadup', this.onTouchEnd);
+    sceneEl.removeEventListener('trackpadtouchstart', this.onTouchStart);
+    sceneEl.removeEventListener('trackpadtouchend', this.onTouchEnd);
   },
 
   isVelocityActive: function () {
