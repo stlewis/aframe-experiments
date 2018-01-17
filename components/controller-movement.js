@@ -12,7 +12,8 @@ AFRAME.registerComponent('controller-movement', {
     fly: {default: false},
     wsAxis: {default: 'z', oneOf: ['x', 'y', 'z']},
     wsEnabled: {default: true},
-    wsInverted: {default: false}
+    wsInverted: {default: false},
+    cameraSelector: {default: 'a-camera'}
   },
 
   axisUp: false,
@@ -28,7 +29,7 @@ AFRAME.registerComponent('controller-movement', {
 
     this.position = {};
     this.velocity = new THREE.Vector3();
-    this.camera   = document.querySelector('a-camera'); // FIXME Property instead?
+    this.camera   = document.querySelector(self.data.cameraSelector); 
 
     el.addEventListener('axismove', function(evt){
       // axis[0] = X (left to right on pad). Negative indicates left.

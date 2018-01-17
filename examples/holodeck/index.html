@@ -5,7 +5,8 @@
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
     
-    <script src='./components/controller-movement.js'></script>
+    <script src='./components/override-universal-controls.js'></script>
+    <script src='./components/universal-gearvr-controls.js'></script>
   </head>
   <body>
     <a-scene >
@@ -22,7 +23,6 @@
 
 
       <a-entity 
-        controller-movement
         raycaster='far: 100; showLine: true; objects: .clickable;' 
         line='color: blue;' 
         laser-controls></a-entity>
@@ -85,8 +85,10 @@
                 rotation="" 
                 visible=""></a-entity>
 
-      <a-camera move-test>
-        <a-cursor raycaster='objects: .clickable'></a-cursor>
+      <a-camera
+        override-universal-controls='movementControls: universal-gearvr, keyboard;'
+        universal-gearvr-controls
+      >
       ≤/a-camera>
       <a-light type='ambient' color='#fff'></a-light>
 
