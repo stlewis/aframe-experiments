@@ -15,10 +15,11 @@
         <a-asset-item id='door' src='./models/door.gltf'></a-asset-item>
       </a-assets>
       <a-entity log='max: 10;'
-                geometry="primitive: plane; height: 2; width: 5;" 
+                geometry="primitive: plane; height: 4; width: 5;" 
                 material='color: #000;' 
                 text="color: green;" 
-                position='0.75 5.5 -8'></a-entity>
+                position='0.75 5.75 7'
+                rotation='0 180 0'></a-entity>
 
 
       <a-entity 
@@ -94,8 +95,9 @@
          camera="userHeight: 1.6" 
          universal-controls='movementControls: keyboard, touch, universal-gearvr;' 
          universal-gearvr-controls
-         kinematic-body>
-      <a-light type='ambient' color='#fff'></a-light>
+         kinematic-body></a-entity>
+      
+        <a-light type='ambient' color='#fff'></a-light>
 
     
     </a-scene>

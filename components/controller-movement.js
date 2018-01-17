@@ -42,11 +42,11 @@ AFRAME.registerComponent('controller-movement', {
       self.axisRight = axis_data[0] > 0;
     });
 
-    el.addEventListener('trackpaddown', function(evt){
+    el.addEventListener('trackpadtouchstart', function(evt){
       self.pushingTrackpad = true;
     });
 
-    el.addEventListener('trackpadup', function(evt){
+    el.addEventListener('trackpadtouchend', function(evt){
       self.pushingTrackpad = false;
     });
   },
