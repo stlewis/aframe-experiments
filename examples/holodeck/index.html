@@ -6,6 +6,7 @@
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
     
     <script src='./components/universal-gearvr-controls.js'></script>
+    <script src='./components/waypoint-setter.js'></script>
   </head>
   <body>
     <a-scene >
@@ -23,12 +24,13 @@
 
 
       <a-entity 
-        raycaster='far: 100; showLine: true; objects: .clickable;' 
+        raycaster='far: 100; showLine: true; objects: #the-floor;' 
         line='color: blue;' 
-        laser-controls></a-entity>
+        laser-controls
+        waypoint-setter></a-entity>
     
       <!-- Ceiling and Floor -->
-      <a-entity geometry="primitive: plane; width: 30; height: 30;" 
+      <a-entity id='the-floor' geometry="primitive: plane; width: 30; height: 30;" 
                 rotation="-90 0 0" 
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;" 
                 position
