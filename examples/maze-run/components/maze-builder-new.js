@@ -4,17 +4,10 @@ AFRAME.registerComponent('maze-builder', {
     // Array is a left-to-right single dimensional representation of an NxN grid.
     this.mazeData = { 
       mapWidth: 5, 
-      mapHeight: 6,
+      mapHeight: 5,
       wallHeight: 5, 
       wallDepth: 1,
-      blocks: [ 
-        1,1,1,1,1,
-        1,0,0,0,0,
-        1,0,0,0,0,
-        1,0,0,0,0,
-        1,0,0,0,0,
-        1,1,1,1,1
-              ]
+      blocks: [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1],
     };
 
     this.horizontalMazeBlocks = [];
@@ -29,41 +22,61 @@ AFRAME.registerComponent('maze-builder', {
     this.drawWalls('horizontal');
     this.drawWalls('vertical');
     
-    //mapped = this.horizontalMazeBlocks.map(function(blk){ return blk.wallTag || 0; })
+    mapped = this.horizontalMazeBlocks.map(function(blk){ return blk.wallTag || 0; })
+    //console.log(mapped);
   },
 
   drawWalls: function(direction){
     var self        = this;
     var mazeBlocks  = direction == 'horizontal' ? self.horizontalMazeBlocks : self.verticalMazeBlocks;
-    var mazeBlocks  = mazeBlocks.filter(function(blk){ return blk.wallAxis === 'horizontal'; });
+    var mazeBlocks  = mazeBlocks.filter(function(blk){ return blk.wallAxis === direction; });
     var wallIndexes = mazeBlocks.map(function(blk){ return blk.wallTag; }).filter(function(tag, idx, arr){
       return arr.indexOf(tag) === idx;
     });
+
 
     wallIndexes.forEach(function(wallIndex){
       wallBlocks = mazeBlocks.filter(function(blk){ return blk.wallTag == wallIndex; });
       first      = wallBlocks[0];
       last       = wallBlocks[wallBlocks.length - 1];
 
-      wallDepth    = direction == 'horizontal' ? self.mazeData.wallDepth : (last.zCoordinate - first.zCoordinate);
+      wallDepth    = self.mazeData.wallDepth;
       wallHeight   = self.mazeData.wallHeight;
-      wallWidth    = direction == 'horizontal' ? (last.xCoordinate = first.xCoordinate) + 1 : self.mazeData.wallDepth;
-      wallPosition = {x: first.xCoordinate, y: self.mazeData.wallHeight/2, z: first.zCoordinate};
+      wallWidth    = wallBlocks.length;
+      wallPosition = self.calculateWallPosition(first, wallWidth);
 
       self.placeWall(wallDepth, wallHeight, wallWidth, wallPosition, direction);
     });
   
   },
 
+  calculateWallPosition: function(firstBlock, totalWidth){
+    var xPos;
+    var yPos;
+    var zPos;
+    
+    if(firstBlock.wallAxis === 'horizontal'){
+      xPos = (firstBlock.xCoordinate/2) + (totalWidth/2);
+      yPos = 0;
+      zPos = firstBlock.zCoordinate - (this.mazeData.wallDepth/2);
+    }else{
+      xPos = (firstBlock.xCoordinate) + (this.mazeData.wallDepth/2);
+      yPos = 0;
+      zPos = firstBlock.zCoordinate + (this.mazeData.wallDepth);
+  }
+    return({x: xPos, y: yPos, z: zPos});
+  },
+
   placeWall: function(wallDepth, wallHeight, wallWidth, wallPosition, axis){
     wall      = document.createElement('a-box');
     wallColor = axis === 'horizontal' ? 'green' : 'blue';
     walls.appendChild(wall);
-    
+
     wall.setAttribute('width', wallWidth);
     wall.setAttribute('height', wallHeight);
-    wall.setAttribute('color', color);
+    wall.setAttribute('color', wallColor);
     wall.setAttribute('depth', wallDepth);
+    if(axis === 'vertical') wall.setAttribute('rotation', {x: 0, y: 90, z: 0});
     wall.setAttribute('position', wallPosition);
     wall.setAttribute('static-body', true);
   },
@@ -76,8 +89,8 @@ AFRAME.registerComponent('maze-builder', {
       data = {};
       data['horizontalIndex'] = idx;
       data['blockSquare']     = block === 1;
-      data['xCoordinate']     = (self.xFromIndex(idx) + self.mazeData.wallDepth);
-      data['zCoordinate']     = (self.zFromIndex(idx) + self.mazeData.wallDepth); 
+      data['xCoordinate']     = (self.xFromIndex(idx));
+      data['zCoordinate']     = (self.zFromIndex(idx));
 
       self.horizontalMazeBlocks.push(data);
     });
@@ -120,24 +133,27 @@ AFRAME.registerComponent('maze-builder', {
     var wallTags = this.verticalMazeBlocks.filter(function(blk){ return blk.blockSquare; }).map(function(blk){ return blk.wallTag });
     if(!wallTags.length > 0) return;
     var wallTag  = wallTags.reduce(function(a, b){ return Math.max(a, b); }) + 1;
+    var uniquelyTagged = [];
+
+    // Go through all the wall Tags.
 
     // Get all free floating vertical blocks
+    console.log(verticalMazeBlocks);
+    console.log(this.horizontalMazeBlocks);
     uniquelyTagged = verticalMazeBlocks.filter(function(block){
       return verticalMazeBlocks.filter(function(blk){ return (blk.wallTag === block.wallTag); }).length === 1;
     });
 
+
     uniquelyTagged.forEach(function(block, idx){
-      block.wallAxis    = 'vertical';
-      block.xCoordinate = -block.xCoordinate;
-      block.zCoordinate = block.zCoordinate + 1;
+      block.wallAxis = 'vertical';
       previousBlock  = uniquelyTagged[idx - 1];
 
       if(previousBlock){
         if((previousBlock.verticalIndex !== block.verticalIndex - 1) || previousBlock.xCoordinate !== block.xCoordinate){
-          // If there was a gap between this and the previous block
-          // Or, if there is a difference in xCoordinate between the two
+           //If there was a gap between this and the previous block
+           //Or, if there is a difference in xCoordinate between the two
           wallTag += 1; 
-        
         }
       
       }
