@@ -1,28 +1,82 @@
 AFRAME.registerComponent('maze-builder', {
+  schema: {
+    src: {type: 'asset'}
+  },
 
   init: function() {
-    // Array is a left-to-right single dimensional representation of an NxN grid.
+    var data = this.data;
+
+    if(data.src){
+      console.log(data.src);
+      fetch(data.src)
+        .then((response) => response.json())
+        .then((json) => {
+          this.setMazeData(json);
+          this.horizontalMazeBlocks = [];
+          this.verticalMazeBlocks   = [];
+          
+          this.setHorizontalMazeBlocks();
+          this.setVerticalMazeBlocks();
+          
+          this.tagHorizontalWalls();
+          this.tagVerticalWalls();
+
+          this.drawWalls('horizontal');
+          this.drawWalls('vertical');
+
+          this.positionCamera();
+        });
+
+    }else{
+      this.mazeData = { 
+        mapWidth: 10,
+        mapHeight: 10,
+        wallHeight: 10,
+        wallDepth: 1,
+        blocks: [
+          1,1,1,1,1,1,1,1,1,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,1,
+          1,1,1,1,0,2,0,1,1,1
+        ]
+      };
+
+      this.horizontalMazeBlocks = [];
+      this.verticalMazeBlocks   = [];
+      
+      this.setHorizontalMazeBlocks();
+      this.setVerticalMazeBlocks();
+      
+      this.tagHorizontalWalls();
+      this.tagVerticalWalls();
+
+      this.drawWalls('horizontal');
+      this.drawWalls('vertical');
+
+      this.positionCamera();
+       
+    }
+
+
+  },
+
+  setMazeData: function(json){
     this.mazeData = { 
-      mapWidth: 30, 
-      mapHeight: 30,
-      wallHeight: 5, 
-      wallDepth: 1,
-      blocks: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      mapWidth: json.width, 
+      mapHeight: json.height,
+      wallHeight: json.wallHeight, 
+      wallDepth: json.wallDepth,
+      blocks: json.blocks,
     };
 
-    this.horizontalMazeBlocks = [];
-    this.verticalMazeBlocks   = [];
-    
-    this.setHorizontalMazeBlocks();
-    this.setVerticalMazeBlocks();
-    
-    this.tagHorizontalWalls();
-    this.tagVerticalWalls();
-
-    this.drawWalls('horizontal');
-    this.drawWalls('vertical');
-
-    this.positionCamera();
+    console.log(this.mazeData);
+  
   },
 
   positionCamera: function(){
@@ -100,7 +154,8 @@ AFRAME.registerComponent('maze-builder', {
 
   setHorizontalMazeBlocks: function(){
     var self = this;
-    this.mazeData.blocks.forEach(function(block, idx){
+    console.log(this);
+    self.mazeData.blocks.forEach(function(block, idx){
       // For every block in the array, figure out the x, z value of it's centerpoint and
       // store whether or not there is a block at that coordinate.
       data = {};
