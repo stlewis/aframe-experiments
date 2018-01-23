@@ -8,6 +8,7 @@ AFRAME.registerComponent('universal-gearvr-controls', {
     this.dVelocity = new THREE.Vector3();
     this.zVel      = 0;
     this.bindMethods();
+    AFRAME.log("Hi there!");
   },
 
   play: function () {

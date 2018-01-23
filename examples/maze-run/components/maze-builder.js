@@ -1,64 +1,178 @@
 AFRAME.registerComponent('maze-builder', {
-  schema: {
-    mazeData: {default: {}},
-    wallSelector: {default: '#walls'},
-    wallTexture: {default: ''},
-    wallColor:   {default: 'blue'},
-    winWallColor: {default: 'red'},
-    winWallTexture: {default: ''},
-    wallSize: {default: 5},
-    wallHeight: {default: 12},
+
+  init: function() {
+    // Array is a left-to-right single dimensional representation of an NxN grid.
+    this.mazeData = { 
+      mapWidth: 30, 
+      mapHeight: 30,
+      wallHeight: 5, 
+      wallDepth: 1,
+      blocks: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    };
+
+    this.horizontalMazeBlocks = [];
+    this.verticalMazeBlocks   = [];
+    
+    this.setHorizontalMazeBlocks();
+    this.setVerticalMazeBlocks();
+    
+    this.tagHorizontalWalls();
+    this.tagVerticalWalls();
+
+    this.drawWalls('horizontal');
+    this.drawWalls('vertical');
+    
+    //mapped = this.horizontalMazeBlocks.map(function(blk){ return blk.wallTag || 0; })
+    //console.log(mapped);
   },
 
-  // FIXME Designate player start via block
+  drawWalls: function(direction){
+    var self        = this;
+    var mazeBlocks  = direction == 'horizontal' ? self.horizontalMazeBlocks : self.verticalMazeBlocks;
+    var mazeBlocks  = mazeBlocks.filter(function(blk){ return blk.wallAxis === direction; });
+    var wallIndexes = mazeBlocks.map(function(blk){ return blk.wallTag; }).filter(function(tag, idx, arr){
+      return arr.indexOf(tag) === idx;
+    });
 
-  init: function () {
-    var el     = this.el;
-    var self   = this;
-    var walls  = document.querySelector(this.data.wallSelector);
-    var mazeData   = JSON.parse(this.data.mazeData);
 
-    var map = { 
-      "height": mazeData.size,
-      "data": mazeData.walls,
-      //"data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 0, 0, 0, 2, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-      "width": mazeData.size
+    wallIndexes.forEach(function(wallIndex){
+      wallBlocks = mazeBlocks.filter(function(blk){ return blk.wallTag == wallIndex; });
+      first      = wallBlocks[0];
+      last       = wallBlocks[wallBlocks.length - 1];
+
+      wallDepth    = self.mazeData.wallDepth;
+      wallHeight   = self.mazeData.wallHeight;
+      wallWidth    = wallBlocks.length;
+      wallPosition = self.calculateWallPosition(first, wallWidth);
+
+      self.placeWall(wallDepth, wallHeight, wallWidth, wallPosition, direction);
+    });
+  
+  },
+
+  calculateWallPosition: function(firstBlock, totalWidth){
+    var xPos;
+    var yPos;
+    var zPos;
+
+    centerX = firstBlock.column;
+    centerZ = firstBlock.row;
+
+    if(firstBlock.wallAxis === 'horizontal'){
+      topX    = centerX +  (totalWidth / 2);
+      topY    = this.mazeData.wallHeight/2;
+      topZ    = centerZ + 0.5;
+    }else{
+      topX    = centerX +  (this.mazeData.wallDepth / 2);
+      topY    = this.mazeData.wallHeight/2;
+      topZ    = centerZ + (this.mazeData.wallDepth + 0.5);
     }
 
+    return {x: topX, y: topY, z: topZ}
+  },
 
-    for (var x = 0; x < map.height; x++)  {
-        for (var y = 0; y < map.width; y++) {
+  placeWall: function(wallDepth, wallHeight, wallWidth, wallPosition, axis){
+    wall      = document.createElement('a-box');
+    wallColor = axis === 'horizontal' ? 'green' : 'blue';
+    walls.appendChild(wall);
 
-            var i = y*map.width + x;
-            var position = (x-map.width/2)*self.data.wallSize + ' ' + 1.5 + ' ' + (y-map.height/2)*self.data.wallSize;
-            if (map.data[i] === 1 || map.data[i] === 2) {
-                // Create wall
-                wall = document.createElement('a-box');
-                walls.appendChild(wall);
-                wall.setAttribute('width', self.data.wallSize);
-                wall.setAttribute('height', self.data.wallHeight);
-              
-                if(map.data[i] === 1){
-                  if(this.data.wallTexture){
-                    wall.setAttribute('material', {src: this.data.wallTexture, repeat: {u: self.data.wallSize, v: self.data.wallSize} });
-                  }else{
-                    wall.setAttribute('color', this.data.wallColor);
-                  }
-                }else{
-                  if(this.data.winWallTexture){
-                    wall.setAttribute('material', {src: this.data.winWallTexture, repeat: {u: self.data.wallSize, v: self.data.wallSize} });
-                  }else{
-                    wall.setAttribute('color', this.data.winWallColor);
-                  }
-                }
-                wall.setAttribute('depth', self.data.wallSize);
-                wall.setAttribute('position', position);
-                wall.setAttribute('static-body', true);
-            }
+    wall.setAttribute('width', wallWidth);
+    wall.setAttribute('height', wallHeight);
+    wall.setAttribute('color', wallColor);
+    wall.setAttribute('depth', wallDepth);
+    if(axis === 'vertical') wall.setAttribute('rotation', {x: 0, y: 90, z: 0});
+    wall.setAttribute('position', wallPosition);
+    wall.setAttribute('static-body', true);
+  },
 
+  setHorizontalMazeBlocks: function(){
+    var self = this;
+    this.mazeData.blocks.forEach(function(block, idx){
+      // For every block in the array, figure out the x, z value of it's centerpoint and
+      // store whether or not there is a block at that coordinate.
+      data = {};
+      data['horizontalIndex'] = idx;
+      data['blockSquare']     = block === 1;
+      data['column']          = self.xFromIndex(idx);
+      data['row']             = self.zFromIndex(idx);
+
+      self.horizontalMazeBlocks.push(data);
+    });
+     
+  },
+
+  setVerticalMazeBlocks: function(){
+    var self = this;
+    
+    for(i = 0; i < this.mazeData.mapWidth; i++){
+      blocks =  this.horizontalMazeBlocks.filter(function(block){ return block.column === i;   });
+      blocks.forEach(function(blk){
+        blk['verticalIndex'] = self.verticalMazeBlocks.length;
+        self.verticalMazeBlocks.push(blk);
+      });
+    }
+  }, 
+
+  tagHorizontalWalls: function(){
+    var wallTag = 1;
+    var self = this;
+
+    this.horizontalMazeBlocks.forEach(function(block, idx){
+      previousBlock = self.horizontalMazeBlocks[idx - 1];
+      if(previousBlock && block.blockSquare){
+        if(!previousBlock.blockSquare || previousBlock.row < block.row){
+          wallTag += 1; 
         }
-    }
+      }
+      
+      if(block.blockSquare){
+        block.wallTag  = wallTag; 
+        block.wallAxis = 'horizontal';
+      }
+    });
+  },
 
+  tagVerticalWalls: function(){
+    var verticalMazeBlocks = this.verticalMazeBlocks;
+    var wallTags = this.verticalMazeBlocks.filter(function(blk){ return blk.blockSquare; }).map(function(blk){ return blk.wallTag });
+    if(!wallTags.length > 0) return;
+    var wallTag  = wallTags.reduce(function(a, b){ return Math.max(a, b); }) + 1;
+    var uniquelyTagged = [];
+
+    // Go through all the wall Tags.
+
+    // Get all free floating vertical blocks
+    uniquelyTagged = verticalMazeBlocks.filter(function(block){
+      return verticalMazeBlocks.filter(function(blk){ return (blk.wallTag === block.wallTag); }).length === 1;
+    });
+
+
+    uniquelyTagged.forEach(function(block, idx){
+      block.wallAxis = 'vertical';
+      previousBlock  = uniquelyTagged[idx - 1];
+
+      if(previousBlock){
+        if((previousBlock.verticalIndex !== block.verticalIndex - 1) || previousBlock.column !== block.column){
+          wallTag += 1; 
+        }
+      
+      }
+      
+      block.wallTag  = wallTag;
+    });
+  },
+
+  xFromIndex: function(idx){
+    mapWidth = this.mazeData.mapWidth;
+    return(idx % mapWidth);
+
+  },
+
+  zFromIndex: function(idx){
+    mapWidth  = this.mazeData.mapWidth;
+    return(Math.floor(idx/mapWidth));
   }
 
 });
+
+
