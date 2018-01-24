@@ -1,6 +1,7 @@
 AFRAME.registerComponent('maze-builder', {
   schema: {
-    src: {type: 'asset'}
+    src: {type: 'asset'},
+    wallTexture: {default: '#wall-texture'}
   },
 
   init: function() {
@@ -25,6 +26,7 @@ AFRAME.registerComponent('maze-builder', {
           this.drawWalls('vertical');
 
           this.positionCamera();
+          this.positionWin();
         });
 
     }else{
@@ -38,7 +40,7 @@ AFRAME.registerComponent('maze-builder', {
           1,0,0,0,0,0,0,0,0,1,
           1,0,0,0,0,0,0,0,0,1,
           1,0,0,0,0,0,0,0,0,1,
-          1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,3,0,0,0,1,
           1,0,0,0,0,0,0,0,0,1,
           1,0,0,0,0,0,0,0,0,1,
           1,0,0,0,0,0,0,0,0,1,
@@ -60,6 +62,7 @@ AFRAME.registerComponent('maze-builder', {
       this.drawWalls('vertical');
 
       this.positionCamera();
+      this.positionWin();
        
     }
 
@@ -88,6 +91,35 @@ AFRAME.registerComponent('maze-builder', {
     zPos = cameraSquare.row;
 
     camera.setAttribute('position', {x: xPos, y: yPos, z: zPos});
+  },
+
+  positionWin: function(){
+    winSphere = document.createElement('a-sphere');
+    winSphere.setAttribute('color', 'gold');
+    winSphere.setAttribute('roughness', '0');
+    winSphere.setAttribute('metalness', '0.5');
+    winSphere.setAttribute('radius', '1');
+    
+    var winSquare = this.horizontalMazeBlocks.filter(function(blk){ return blk.winSquare; })[0];
+    if(winSquare){
+      xPos = winSquare.column;
+      yPos = 1.6;
+      zPos = winSquare.row;
+    }else{
+      return;
+      // FIXME Only _truly_ empty squares should be eligible for the ball
+      //emptySquares = this.horizontalMazeBlocks.filter(function(blk){ return !blk.blockSquare;  });
+      //rIndex       = Math.floor(Math.random() * emptySquares.length)
+      //randomSquare = emptySquares[rIndex]
+      //console.log(randomSquare);
+      //xPos = randomSquare.column + (this.mazeData.wallDepth/2);
+      //yPos = 1.6;
+      //zPos = randomSquare.row;
+    }
+    
+    winSphere.setAttribute('position', {x: xPos, y: yPos, z: zPos});
+
+    this.el.appendChild(winSphere);
   },
 
   drawWalls: function(direction){
@@ -140,12 +172,18 @@ AFRAME.registerComponent('maze-builder', {
 
   placeWall: function(wallDepth, wallHeight, wallWidth, wallPosition, axis){
     wall      = document.createElement('a-box');
-    wallColor = axis === 'horizontal' ? 'green' : 'blue';
+    wallColor = 'blue';
     walls.appendChild(wall);
 
     wall.setAttribute('width', wallWidth);
     wall.setAttribute('height', wallHeight);
-    wall.setAttribute('color', wallColor);
+      
+    if(this.data.wallTexture){
+      wall.setAttribute('src', this.data.wallTexture);
+    }else{
+      wall.setAttribute('color', wallColor);
+    }
+
     wall.setAttribute('depth', wallDepth);
     if(axis === 'vertical') wall.setAttribute('rotation', {x: 0, y: 90, z: 0});
     wall.setAttribute('position', wallPosition);
@@ -162,6 +200,7 @@ AFRAME.registerComponent('maze-builder', {
       data['horizontalIndex'] = idx;
       data['blockSquare']     = block === 1;
       data['cameraSquare']    = block === 2;
+      data['winSquare']       = block === 3;
       data['column']          = self.xFromIndex(idx);
       data['row']             = self.zFromIndex(idx);
 

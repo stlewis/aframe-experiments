@@ -46,7 +46,7 @@ AFRAME.registerComponent('waypoint-setter', {
       point    = this.currentIntersect;
 
       waypoint = document.createElement('a-cylinder');
-      waypoint.setAttribute('radius', '0.04');
+      waypoint.setAttribute('radius', '0.5');
       waypoint.setAttribute('opacity', '0.4');
       waypoint.setAttribute('height', '1000'); // FIXME Attribute
       waypoint.setAttribute('color', 'red');   // Attribute

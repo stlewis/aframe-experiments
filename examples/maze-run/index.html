@@ -15,6 +15,8 @@
   <body>
     <a-scene stats physics='gravity: 0;'> 
       <a-assets>
+        <img id='wall-texture' src='./walls.jpg'>
+        <img id='floor-texture' src='./floor.jpg'>
       </a-assets>
       <a-entity cubemap="folder: ./skyboxes/morose/"></a-entity>
 
@@ -28,11 +30,15 @@
          kinematic-body>
         <a-cursor></a-cursor> 
       </a-entity>
-      
+
+      <!--Maze data: -->
+      <!--25 == Walls (1)-->
+      <!--40 == Player Start-->
+      <!--51 == Win Ball-->
       <a-entity laser-controls waypoint-setter>
         <a-entity fps-counter position='0 0 -1'></a-entity>
       </a-entity>
-      <a-grid width=1000 height=1000></a-grid>
+      <a-grid src='#floor-texture' width=1000 height=1000></a-grid>
 
       <a-entity id='walls' position='0 0 0' maze-builder='src: ./maze.json'></a-entity>
 
