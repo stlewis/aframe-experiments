@@ -8,6 +8,7 @@ AFRAME.registerComponent('universal-gearvr-controls', {
     this.dVelocity = new THREE.Vector3();
     this.zVel      = 0;
     this.bindMethods();
+    AFRAME.log("Mounted son!");
   },
 
   play: function () {
@@ -57,11 +58,13 @@ AFRAME.registerComponent('universal-gearvr-controls', {
   },
 
   onTouchStart: function (e) {
+    AFRAME.log("Touched")
     this.isMoving = true;
     e.preventDefault();
   },
 
   onTouchEnd: function (e) {
+    AFRAME.log("unTouched")
     this.isMoving = false;
     e.preventDefault();
   },
@@ -70,14 +73,13 @@ AFRAME.registerComponent('universal-gearvr-controls', {
     var axis_data = e.detail.axis;
 
     if(axis_data[1] < 0){
-      this.zVel = 1; 
+      this.zVel = 1;
     }
 
     if(axis_data[1] > 0){
       this.zVel = -1;
     }
-    
-  }
 
+  }
 
 });

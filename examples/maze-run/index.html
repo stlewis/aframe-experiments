@@ -1,34 +1,34 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
     <script src="https://unpkg.com/aframe-cubemap-component@0.1.2/dist/aframe-cubemap-component.min.js"></script>
-    
+
     <script src='./shared-components/universal-gearvr-controls.js'></script>
 
     <script src='./components/maze-builder.js'></script>
     <script src='./components/waypoint-setter.js'></script>
   </head>
   <body>
-    <a-scene stats physics='gravity: 0;'> 
+    <a-scene stats physics='gravity: 0;'>
       <a-assets>
         <img id='wall-texture' src='./walls.jpg'>
         <img id='floor-texture' src='./floor.jpg'>
       </a-assets>
       <a-entity cubemap="folder: ./skyboxes/morose/"></a-entity>
 
-      <a-entity 
+      <a-entity
          id='scene-camera'
          camera
-         position='0 1.6 5;'  
+         position='0 1.6 5;'
          rotation='0 0 0;'
-         universal-controls='movementControls: keyboard, gamepad, universal-gearvr;' 
+         universal-controls='movementControls: keyboard, gamepad, universal-gearvr;'
          universal-gearvr-controls
          kinematic-body>
-        <a-cursor></a-cursor> 
+        <a-cursor></a-cursor>
       </a-entity>
 
       <!--Maze data: -->
@@ -42,7 +42,7 @@
 
       <a-entity id='walls' position='0 0 0' maze-builder='src: ./maze.json'></a-entity>
 
-    
+
     </a-scene>
   </body>
 </html>

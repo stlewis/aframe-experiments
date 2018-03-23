@@ -15,10 +15,10 @@ AFRAME.registerComponent('maze-builder', {
           this.setMazeData(json);
           this.horizontalMazeBlocks = [];
           this.verticalMazeBlocks   = [];
-          
+
           this.setHorizontalMazeBlocks();
           this.setVerticalMazeBlocks();
-          
+
           this.tagHorizontalWalls();
           this.tagVerticalWalls();
 
@@ -30,7 +30,7 @@ AFRAME.registerComponent('maze-builder', {
         });
 
     }else{
-      this.mazeData = { 
+      this.mazeData = {
         mapWidth: 10,
         mapHeight: 10,
         wallHeight: 10,
@@ -51,10 +51,10 @@ AFRAME.registerComponent('maze-builder', {
 
       this.horizontalMazeBlocks = [];
       this.verticalMazeBlocks   = [];
-      
+
       this.setHorizontalMazeBlocks();
       this.setVerticalMazeBlocks();
-      
+
       this.tagHorizontalWalls();
       this.tagVerticalWalls();
 
@@ -63,23 +63,20 @@ AFRAME.registerComponent('maze-builder', {
 
       this.positionCamera();
       this.positionWin();
-       
+
     }
 
 
   },
 
   setMazeData: function(json){
-    this.mazeData = { 
-      mapWidth: json.width, 
+    this.mazeData = {
+      mapWidth: json.width,
       mapHeight: json.height,
-      wallHeight: json.wallHeight, 
+      wallHeight: json.wallHeight,
       wallDepth: json.wallDepth,
       blocks: json.blocks,
     };
-
-    console.log(this.mazeData);
-  
   },
 
   positionCamera: function(){
@@ -99,7 +96,7 @@ AFRAME.registerComponent('maze-builder', {
     winSphere.setAttribute('roughness', '0');
     winSphere.setAttribute('metalness', '0.5');
     winSphere.setAttribute('radius', '1');
-    
+
     var winSquare = this.horizontalMazeBlocks.filter(function(blk){ return blk.winSquare; })[0];
     if(winSquare){
       xPos = winSquare.column;
@@ -107,17 +104,20 @@ AFRAME.registerComponent('maze-builder', {
       zPos = winSquare.row;
     }else{
       return;
-      // FIXME Only _truly_ empty squares should be eligible for the ball
-      //emptySquares = this.horizontalMazeBlocks.filter(function(blk){ return !blk.blockSquare;  });
-      //rIndex       = Math.floor(Math.random() * emptySquares.length)
-      //randomSquare = emptySquares[rIndex]
-      //console.log(randomSquare);
-      //xPos = randomSquare.column + (this.mazeData.wallDepth/2);
-      //yPos = 1.6;
-      //zPos = randomSquare.row;
     }
-    
+
     winSphere.setAttribute('position', {x: xPos, y: yPos, z: zPos});
+
+    winAnim = document.createElement('a-animation');
+    winAnim.setAttribute('attribute', 'position');
+    winAnim.setAttribute('direction', 'alternate');
+    winAnim.setAttribute('dur', 1000);
+    winAnim.setAttribute('repeat', 'true');
+    winAnim.setAttribute('autoplay', 'true');
+    winAnim.setAttribute('easing', 'linear');
+    winAnim.setAttribute('from', winSquare.column + ' 1.6 ' + winSquare.row);
+    winAnim.setAttribute('to', winSquare.column + ' 2.6 ' + winSquare.row);
+    winSphere.appendChild(winAnim);
 
     this.el.appendChild(winSphere);
   },
@@ -143,7 +143,7 @@ AFRAME.registerComponent('maze-builder', {
 
       self.placeWall(wallDepth, wallHeight, wallWidth, wallPosition, direction);
     });
-  
+
   },
 
   calculateWallPosition: function(firstBlock, totalWidth){
@@ -158,13 +158,13 @@ AFRAME.registerComponent('maze-builder', {
     }else{
       topX    = centerX + (self.mazeData.wallDepth / 2);
       topY    = this.mazeData.wallHeight/2;
-      
+
       if(totalWidth == 1){
-        topZ = centerZ; 
+        topZ = centerZ;
       }else{
         topZ    = centerZ + (totalWidth/2) - (self.mazeData.wallDepth / 2);
       }
-    
+
     }
 
     return {x: topX, y: topY, z: topZ}
@@ -177,7 +177,7 @@ AFRAME.registerComponent('maze-builder', {
 
     wall.setAttribute('width', wallWidth);
     wall.setAttribute('height', wallHeight);
-      
+
     if(this.data.wallTexture){
       wall.setAttribute('src', this.data.wallTexture);
     }else{
@@ -206,12 +206,12 @@ AFRAME.registerComponent('maze-builder', {
 
       self.horizontalMazeBlocks.push(data);
     });
-     
+
   },
 
   setVerticalMazeBlocks: function(){
     var self = this;
-    
+
     for(i = 0; i < this.mazeData.mapWidth; i++){
       blocks =  this.horizontalMazeBlocks.filter(function(block){ return block.column === i;   });
       blocks.forEach(function(blk){
@@ -219,7 +219,7 @@ AFRAME.registerComponent('maze-builder', {
         self.verticalMazeBlocks.push(blk);
       });
     }
-  }, 
+  },
 
   tagHorizontalWalls: function(){
     var wallTag = 1;
@@ -229,12 +229,12 @@ AFRAME.registerComponent('maze-builder', {
       previousBlock = self.horizontalMazeBlocks[idx - 1];
       if(previousBlock && block.blockSquare){
         if(!previousBlock.blockSquare || previousBlock.row < block.row){
-          wallTag += 1; 
+          wallTag += 1;
         }
       }
-      
+
       if(block.blockSquare){
-        block.wallTag  = wallTag; 
+        block.wallTag  = wallTag;
         block.wallAxis = 'horizontal';
       }
     });
@@ -261,11 +261,11 @@ AFRAME.registerComponent('maze-builder', {
 
       if(previousBlock){
         if((previousBlock.verticalIndex !== block.verticalIndex - 1) || previousBlock.column !== block.column){
-          wallTag += 1; 
+          wallTag += 1;
         }
-      
+
       }
-      
+
       block.wallTag  = wallTag;
     });
   },
