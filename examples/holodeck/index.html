@@ -1,11 +1,8 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
-		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
-
-    <script src='./shared-components/universal-gearvr-controls.js'></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.0/dist/aframe-extras.min.js"></script>
   </head>
   <body>
     <a-scene >
@@ -51,6 +48,7 @@
                 material="src: #grid; repeat: 30 30; transparent: true;metalness:0.6; roughness: 0.4;"
                 position='0 0 -10'
                 scale
+                static-body
                 visible></a-entity>
 
         <!-- Back Wall -->
@@ -93,7 +91,8 @@
 
       <a-entity
          id='scene-camera'
-         camera="userHeight: 1.6"
+         position='0 1.6 0'
+         camera
          universal-controls='movementControls: keyboard, touch, universal-gearvr, gamepad;'
          universal-gearvr-controls
          kinematic-body></a-entity>
