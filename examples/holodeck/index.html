@@ -5,7 +5,7 @@
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.0/dist/aframe-extras.min.js"></script>
   </head>
   <body>
-    <a-scene >
+    <a-scene physics>
       <a-assets>
         <img id='grid' src='./grid.png'>
         <a-asset-item id='c-arch' src='./models/holoarch.dae'></a-asset-item>
@@ -93,8 +93,8 @@
          id='scene-camera'
          position='0 1.6 0'
          camera
-         universal-controls='movementControls: keyboard, touch, universal-gearvr, gamepad;'
-         universal-gearvr-controls
+         universal-controls='movementControls: keyboard, touch, gamepad, trackpad;'
+         trackpad-controls
          kinematic-body></a-entity>
 
         <a-light type='ambient' color='#fff'></a-light>

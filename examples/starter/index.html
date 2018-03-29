@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.0/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene physics>
+      <a-entity id="rig"
+                movement-controls='controls: keyboard, touch, gamepad, trackpad;'
+                trackpad-controls
+                position="0 0 5">
+        <a-entity camera
+                  position="0 1.6 0"
+                  look-controls="pointerLockEnabled: true"></a-entity>
+      </a-entity>
+      <a-light type='ambient' color='#fff'></a-light>
+
+      <!-- My Stuff -->
+      <a-box position='0 0 0' rotation='1.2 4 0' color='tomato' depth='2' height='2' width='2'></a-box>
+
+    </a-scene>
+  </body>
+</html>
