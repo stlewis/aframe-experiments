@@ -9,10 +9,10 @@
     <script src='./components/landing-pad.js'></script>
   </head>
   <body>
-    <a-scene physics='gravity: -1.62'>
-      <a-entity environment="preset: arches"></a-entity>
+    <a-scene physics='gravity: -1.62; restitution: 0;'>
+      <a-entity environment="preset: starry; ground: canyon; groundColor: #A09999; groundColor2: #333333; groundTexture: walkernoise;"></a-entity>
       <a-entity id="rig"
-                movement-controls='controls: keyboard, touch, gamepad, trackpad; fly: true;'
+                movement-controls='controls: keyboard, touch, gamepad, trackpad;'
                 trackpad-controls
                 keyboard-controls
                 kinematic-body
@@ -25,6 +25,7 @@
                   <a-cursor>
                     <a-entity id='fuel-hud'></a-entity>
                     <a-entity id='score-hud'></a-entity>
+                    <a-entity id='speed-hud' position='0 -0.25 0'></a-entity>
                   </a-cursor></a-entity>
       </a-entity>
       <a-light type='ambient' color='#fff'></a-light>
