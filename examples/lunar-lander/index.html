@@ -6,16 +6,17 @@
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 
     <script src='./components/thrusters.js'></script>
+    <script src='./components/landing-pad.js'></script>
   </head>
   <body>
     <a-scene physics='gravity: -1.62'>
       <a-entity environment="preset: arches"></a-entity>
       <a-entity id="rig"
-                movement-controls='controls: keyboard, touch, gamepad, trackpad;'
+                movement-controls='controls: keyboard, touch, gamepad, trackpad; fly: true;'
                 trackpad-controls
                 keyboard-controls
                 kinematic-body
-                thrusters
+                thrusters="fuelLevel: 3000;"
                 position="3 3 2">
         <a-entity camera
                   look-controls='pointerLockEnabled=false'
@@ -29,9 +30,9 @@
       <a-light type='ambient' color='#fff'></a-light>
 
       <!-- My Stuff -->
-      <a-box position='3 2 2' static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
-      <a-box position='20 2 10' static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
-      <a-box position='30 2 -30' static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
+      <a-box position='3 2 2' landing-pad static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
+      <a-box position='20 2 10' landing-pad static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
+      <a-box position='30 2 -30' landing-pad static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>
       <!--<a-box position='90 1 8' static-body rotation='1.2 4 0' color='green' depth='2' height='3' width='2'></a-box>-->
 
     </a-scene>
