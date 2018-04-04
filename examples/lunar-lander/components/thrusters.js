@@ -13,8 +13,8 @@ AFRAME.registerComponent('thrusters', {
     this.altitudeHUD = document.querySelector("#altitude-hud")
     // We also need to decide what the "safe" landing range in in terms of speed.
     this.fuelHUD.setAttribute('text', { value: "Fuel: " + this.data.fuelLevel });
-    this.speedHUD.setAttribute('text', { value: "Vertical Speed: 0", anchor: 'right', baseline: 'bottom'});
-    this.altitudeHUD.setAttribute('text', { value: "AGL: 0", anchor: 'right', baseline: 'top'});
+    this.speedHUD.setAttribute('text', { value: "Vertical Speed: 0"});
+    this.altitudeHUD.setAttribute('text', { value: "AGL: 0"});
 
     this.thrusterEngagedSecs = 0;
   },

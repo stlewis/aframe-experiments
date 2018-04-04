@@ -4,12 +4,13 @@
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.0/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://rawgit.com/takahirox/aframe-rain/master/build/aframe-rain.min.js"></script>
 
     <script src='./components/thrusters.js'></script>
     <script src='./components/landing-pad.js'></script>
   </head>
   <body>
-    <a-scene score='0' physics='gravity: -1.62; restitution: 0;'>
+    <a-scene rain score='0' physics='gravity: -1.62; restitution: 0;'>
       <a-entity environment="preset: starry; ground: canyon; groundColor: #A09999; groundColor2: #333333; groundTexture: walkernoise;"></a-entity>
       <a-entity id="rig"
                 movement-controls='controls: keyboard, touch, gamepad, trackpad;'
@@ -22,14 +23,16 @@
                   look-controls='pointerLockEnabled=false'
                   position="0 1.6 0"
                   >
-                  <a-cursor>
-                    <a-entity id='fuel-hud'></a-entity>
-                    <a-entity id='altitude-hud'></a-entity>
-                    <a-entity id='score-hud' position='0.25 0 0'></a-entity>
-                    <a-entity id='speed-hud' position='0 -0.25 0'></a-entity>
+                  <a-cursor material='color: green;'>
+                    <a-plane color='#000' opacity='.45' width='1' height='0.5'>
+                      <a-entity id='fuel-hud' position='0.15 -0.15 0.3' text='color: green;'></a-entity>
+                      <a-entity id='altitude-hud' position='0.15 0.15 0.3' text='color: green;'></a-entity>
+                      <a-entity id='score-hud' position='0.65 -0.15 0.3' text='color: green'></a-entity>
+                      <a-entity id='speed-hud' position='0.45 0.15 0.3' text='color: green'></a-entity>
+                    </a-plane>
                   </a-cursor></a-entity>
       </a-entity>
-      <a-light type='ambient' color='#fff'></a-light>
+      <a-light type='ambient' color='#eaeaea'></a-light>
 
       <!-- My Stuff -->
       <a-box position='3 1.5 4' landing-pad static-body rotation='1.2 4 0' color='blue' depth='2' height='3' width='2'></a-box>
