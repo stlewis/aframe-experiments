@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene >
+      <a-assets>
+        <a-asset-item id='hills' src='./hills.gltf'>
+        <a-asset-item id='navmesh' src='./hills-nav.gltf'>
+      </a-assets>
+
+        <!-- Player -->
+        <a-entity
+          raycaster='far: 100; showLine: false;'
+          laser-controls></a-entity>
+        <a-entity id="rig"
+                  movement-controls='speed: 0.1; constrainToNavMesh: true; controls: keyboard, touch, gamepad, trackpad;'
+                  trackpad-controls
+                  position="0 0 0">
+          <a-entity camera
+                    id='camera'
+                    look-controls='pointerLockEnabled=false'
+                    position="0 1.6 0"
+                    >
+                    <a-cursor id='fire-cursor'
+                              color='red' >
+                    </a-cursor>
+          </a-entity>
+        </a-entity>
+
+      <a-entity id='scene-wrapper' visible='true'>
+
+        <a-gltf-model src='#hills' visible='true' position='0 -2 0'></a-gltf-model>
+        <a-gltf-model nav-mesh visible='false' src='#navmesh' position='0 -2 0' material='color: green;'></a-gltf-model>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>

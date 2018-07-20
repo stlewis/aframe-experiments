@@ -2,7 +2,7 @@
   <head>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.0/dist/aframe-extras.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.2/dist/aframe-physics-system.min.js"></script>
   </head>
   <body>
@@ -11,7 +11,11 @@
         <img id='grid' src='./grid.png'>
         <a-asset-item id='c-arch' src='./models/holoarch.dae'></a-asset-item>
         <a-asset-item id='door' src='./models/door.gltf'></a-asset-item>
+        <a-asset-item id='book' src='./models/book.gltf'>
       </a-assets>
+
+
+        <a-gltf-model src='#book' position='0 1 -2' scale='.5 .5 .5' rotation='45 0 0'></a-gltf-model>
 
       <a-entity id="rig"
                 movement-controls='controls: keyboard, touch, gamepad, trackpad;'
@@ -33,7 +37,7 @@
 
 
       <a-entity
-        raycaster='far: 100; showLine: true; objects: #the-floor;'
+        raycaster='far: 100; showLine: true;'
         line='color: blue;'
         laser-controls></a-entity>
 
