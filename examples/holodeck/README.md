@@ -1,5 +1,7 @@
 # Holodeck
 
-This is my primary "staging" area for small models and/or experimental
-components. Any time I need a discrete space to load something in to for
-testing, I use the holodeck.
+This is a simple staging area that I built just to allow me to load up 3D
+models or other experimental features before I try to incorporate them into
+larger or more complex scenes.  It's, (obviously) inspired by the holodeck from
+the Star Trek: The Next Generation TV series.
+
