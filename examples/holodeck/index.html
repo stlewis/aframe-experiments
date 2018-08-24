@@ -25,16 +25,17 @@
       <!-- End Staging Area -->
 
       <!-- Controller -->
-      <a-entity
-        raycaster='far: 100; showLine: true;'
-        line='color: blue;'
-        laser-controls></a-entity>
 
       <!-- Camera Rig -->
       <a-entity id="rig"
                 movement-controls='constrainToNavMesh: true; controls: keyboard, touch, gamepad, trackpad;'
                 trackpad-controls
-                position="0 1.6 0">
+                position="0 1 0">
+
+      <a-entity
+        raycaster='far: 100; showLine: true;'
+        line='color: blue;'
+        laser-controls></a-entity>
         <a-entity camera
                   look-controls="pointerLockEnabled: true"></a-entity>
       </a-entity>
@@ -48,7 +49,7 @@
                 geometry="primitive: plane; height: 2; width: 4.5;"
                 material='color: #000; side: double;'
                 text="color: green;"
-                position='-0.5 1.6 4.99'
+                position='-0.5 2.6 4.99'
                 rotation='0 180 0'></a-entity>
       <!-- End Log Panel -->
 
@@ -65,7 +66,7 @@
       <a-entity id='the-ceiling' geometry="primitive: plane; width: 10; height: 10;"
                 rotation="90 0 0"
                 material="src: #grid; repeat: 30 30; side: double;"
-                position='0 4 0'
+                position='0 6 0'
                 visible='true'></a-entity>
 
 
@@ -77,39 +78,39 @@
 
       <!-- Walls -->
         <!-- Front Wall -->
-      <a-entity geometry="primitive: plane; width: 10; height: 4;"
+      <a-entity geometry="primitive: plane; width: 10; height: 10;"
                 rotation="0 0 0"
-                material="src: #grid; repeat: 30 10; side: double; "
+                material="src: #grid; repeat: 30 30; side: double; "
                 position='0 2 -5'
                 visible='true'></a-entity>
 
         <!-- Back Wall -->
-      <a-entity geometry="primitive: plane; width: 10; height: 4;"
+      <a-entity geometry="primitive: plane; width: 10; height: 10;"
                 rotation="0 180 0"
-                material="src: #grid; repeat: 30 10; side: double;"
+                material="src: #grid; repeat: 30 30; side: double;"
                 position='0 2 5'
                 visible='true'></a-entity>
         <!-- Right Wall -->
-      <a-entity geometry="primitive: plane; width: 4; height: 10;"
+      <a-entity geometry="primitive: plane; width: 10; height: 10;"
                 rotation="0 -90 90"
-                material="src: #grid; repeat: 10 30; side: double;"
+                material="src: #grid; repeat: 30 30; side: double;"
                 position='5 2 0'
                 visible='true'></a-entity>
         <!-- Left Wall -->
-      <a-entity geometry="primitive: plane; width: 4; height: 10;"
+      <a-entity geometry="primitive: plane; width: 10; height: 10;"
                 rotation="0 90 90"
-                material="src: #grid; repeat: 10 30; side: double;"
+                material="src: #grid; repeat: 30 30; side: double;"
                 position='-5 2 0'
                 visible='true'></a-entity>
         <!-- Arch -->
       <a-entity collada-model="#c-arch"
-                scale="1.2 1.2 1.2"
+                scale="1.4 1.7 1.4"
                 position="-1.8 0 -5"></a-entity>
 
          <!--Door -->
       <a-entity gltf-model-legacy="#door"
-                scale="1.5 1 1"
-                position="-1.8 0 -4.5"</a-entity>
+                scale="1.8 1.5 1.4"
+                position="-1.8 0 -4.3"</a-entity>
       <!-- End Architecture -->
 
     </a-scene>
