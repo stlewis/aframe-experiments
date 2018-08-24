@@ -180,6 +180,7 @@ AFRAME.registerComponent('maze-builder', {
 
     if(this.data.wallTexture){
       wall.setAttribute('src', this.data.wallTexture);
+      wall.setAttribute("material", "src: " + this.data.wallTexture + "; roughness: 1; metalness: 0.5;")
     }else{
       wall.setAttribute('color', wallColor);
     }
