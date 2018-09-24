@@ -2,7 +2,8 @@
   <head>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <!--<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>-->
+    <script src='./bundle.js'></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
 
@@ -28,15 +29,18 @@
 
       <!-- Camera Rig -->
       <a-entity id="rig"
-                movement-controls='constrainToNavMesh: true; controls: keyboard, touch, gamepad, trackpad;'
-                trackpad-controls
-                position="0 1 0">
+                movement-controls='speed: 0.1; constrainToNavMesh: true; controls: keyboard, touch, gamepad, trackpad;'
+                trackpad-controls='allowStrafe: false;'
+                rotation='0 90 0'
+                position="0 0 0">
 
       <a-entity
         raycaster='far: 100; showLine: true;'
         line='color: blue;'
         laser-controls></a-entity>
         <a-entity camera
+                  position='0 1.6 0'
+                  rotation='0 90 0'
                   look-controls="pointerLockEnabled: true"></a-entity>
       </a-entity>
       <!-- End Camera Rig -->
