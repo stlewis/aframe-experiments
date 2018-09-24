@@ -1,1 +1,0 @@
-../../../aframe-extras/examples/bundle.js
