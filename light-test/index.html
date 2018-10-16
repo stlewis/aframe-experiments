@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ES6 Boilerplate</title>
+    <meta name="description" content="Light Test">
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.2.0/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene background="color: #000000;" light="defaultLightsEnabled: false">
+      <a-assets>
+        <img id="floor-texture" src="./images/floor.jpg">
+        <img id="wall-texture" src="./images/wall.jpg">
+        <img id="ceiling-texture" src="./images/ceiling.jpg">
+
+        <a-asset-item id="table" src="models/end_table/scene.gltf"></a-asset-item>
+        <a-asset-item id="table-lamp" src="models/table_lamp/scene.gltf"></a-asset-item>
+
+        <a-asset-item id='navmesh' src='./navmesh.gltf'>
+      </a-assets>
+
+
+
+      <a-entity position="-1.261 1.162 -1.344" rotation='0 -90 0' light="type: point; intensity: 0.9; color: ##FFFFEF; decay: 0.2; decay: 0.2"></a-entity>
+      <a-entity position=" -1.4 0 -1.45" gltf-model="#table" scale='0.20 0.20 0.20'></a-entity>
+      <a-entity position=" -1.267 0.75 -1.340" gltf-model="#table-lamp" scale='0.020 0.020 0.020'></a-entity>
+
+
+      <a-entity id="rig"
+                movement-controls='constrainToNavMesh: true; controls: keyboard, touch, gamepad, trackpad;'
+                position="0 0 0">
+        <a-entity camera
+                  position='0 1.6 0'
+                  look-controls="pointerLockEnabled: true"></a-entity>
+      </a-entity>
+
+
+      <a-entity id="floor"
+                rotation="-90 0 0"
+                geometry="primitive: plane; height: 4; width: 4;"
+                material="src: #floor-texture; repeat: 4 4; roughness: 1;"></a-entity>
+
+      <a-entity id="ceiling"
+                rotation="90 0 0"
+                position='0 2.5 0'
+                geometry="primitive: plane; height: 4; width: 4;"
+                material="src: #ceiling-texture; repeat: 4 4; roughness: 1; metalness: 0;"></a-entity>
+
+      <a-entity id="front-wall"
+                position="0 1.25 -2"
+                geometry="primitive: plane; height: 2.5; width: 4;"
+                material="src: #wall-texture; repeat: 2.5 4; roughness: 1; metalness: 0;"></a-entity>
+
+      <a-entity id="back-wall"
+                position="0 1.25 2"
+                rotation="0 180 0"
+                geometry="primitive: plane; height: 2.5; width: 4;"
+                material="src: #wall-texture; repeat: 2.5 4; roughness: 1; metalness: 0;"></a-entity>
+
+      <a-entity id="left-wall"
+                position="-2 1.25 0"
+                rotation='0 90 0'
+                geometry="primitive: plane; height: 2.5; width: 4;"
+                material="src: #wall-texture; repeat: 2.5 4; roughness: 1; metalness: 0;"></a-entity>
+
+      <a-entity id="right-wall"
+                position="2 1.25 0"
+                rotation='0 -90 0'
+                geometry="primitive: plane; height: 2.5; width: 4;"
+                material="src: #wall-texture; repeat: 2.5 4; roughness: 1; metalness: 0;"></a-entity>
+
+      <a-gltf-model nav-mesh src='#navmesh' position='0 0 0' visible='false'></a-gltf-model>
+
+    </a-scene>
+  </body>
+</html>
