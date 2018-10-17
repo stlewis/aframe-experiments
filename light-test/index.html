@@ -16,6 +16,7 @@
         <img id="wall-texture" src="./images/wall.jpg">
         <img id="ceiling-texture" src="./images/ceiling.jpg">
         <img id="grass-texture" src="./images/grass.png">
+        <img id="wall-normal" src="./images/wall-normal.jpg">
 
         <a-asset-item id="table" src="models/end_table/scene.gltf"></a-asset-item>
         <a-asset-item id="table-lamp" src="models/table_lamp/scene.gltf"></a-asset-item>
@@ -23,7 +24,7 @@
         <a-asset-item id='navmesh' src='./navmesh.gltf'></a-asset-item>
       </a-assets>
 
-      <a-mixin id='wall-material' shadow="receive: true; cast: true;" material="src: #wall-texture; repeat: 3 3; roughness: 1; metalness: 0; side: double;"></a-mixin>
+      <a-mixin id='wall-material' shadow="receive: true; cast: true;" material="src: #wall-texture; repeat: 2 2; roughness: 1; metalness: 0; side: double; normalMap: #wall-normal; normalTextureRepeat: 2 2;"></a-mixin>
 
       <a-entity id='sunlight' light="type: directional; color: #EEE; intensity: 5; castShadow: true;" position="-3 10 -10" rotation="45 -45 0"></a-entity>
 
