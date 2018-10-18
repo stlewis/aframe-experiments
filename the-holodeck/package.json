@@ -11,6 +11,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "babel-preset-env": "^1.7.0",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
     "ghpages": "0.0.10",
@@ -26,6 +27,8 @@
   ],
   "dependencies": {
     "aframe": "github:aframevr/aframe#master",
-    "aframe-extras": "^4.2.0"
+    "aframe-extras": "^4.2.0",
+    "aframe-log-component": "^1.0.7",
+    "aframe-physics-system": "^3.2.0"
   }
 }
