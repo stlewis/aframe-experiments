@@ -1,0 +1,31 @@
+{
+  "name": "the-holodeck",
+  "description": "The Holodeck",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "live-server",
+    "deploy": "ghpages",
+    "build": "browserify index.js -o build/bundle.js -t [ babelify --presets [ @babel/preset-env ] ]"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "ghpages": "0.0.10",
+    "live-server": "^1.2.0"
+  },
+  "keywords": [
+    "aframe",
+    "aframe-example",
+    "aframe-boilerplate",
+    "aframe-scene",
+    "webvr",
+    "vr"
+  ],
+  "dependencies": {
+    "aframe": "github:aframevr/aframe#master",
+    "aframe-extras": "^4.2.0"
+  }
+}
