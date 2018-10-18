@@ -3,124 +3,7 @@
 
 require('aframe');
 
-require('aframe-log-component');
-
-},{"aframe":3,"aframe-log-component":2}],2:[function(require,module,exports){
-/* global AFRAME */
-
-if (typeof AFRAME === 'undefined') {
-  throw new Error('Component attempted to register before AFRAME was available.');
-}
-
-AFRAME.registerPrimitive('a-log', {
-  defaultComponents: {
-    geometry: {primitive: 'plane', height: 5},
-    log: {},
-    material: {color: '#111', shader: 'flat', side: 'double'},
-    text: {color: 'lightgreen', baseline: 'top', align: 'center', height: 5}
-  },
-
-  mappings: {
-    channel: 'log.channel'
-  }
-});
-
-AFRAME.registerSystem('log', {
-  schema: {
-    console: {default: true}
-  },
-
-  init: function () {
-    var data = this.data;
-    var logs = this.logs = [];
-    var loggers = this.loggers = [];
-
-    // Register global function to adding logs.
-    AFRAME.log = function (message, channel) {
-      logs.push([message, channel]);
-      loggers.forEach(function (loggerComponent) {
-        loggerComponent.receiveLog(message, channel);
-      });
-
-      if (data.console) {
-        console.log('[log:' + (channel || '') + '] ' + message);
-      }
-    };
-  },
-
-  registerLogger: function (component) {
-    this.loggers.push(component);
-    this.logs.forEach(function (log) {
-      component.receiveLog.apply(component, log);
-    });
-  },
-
-  unregisterLogger: function (component) {
-    this.loggers.splice(this.loggers.indexOf(component), 1);
-  }
-});
-
-/**
- * In-VR logging using text component.
- */
-AFRAME.registerComponent('log', {
-  schema: {
-    channel: {type: 'string'},
-    filter: {type: 'string'},
-    max: {default: 100},
-    showErrors: {default: true}
-  },
-
-  init: function () {
-    this.logs = [];
-    this.system.registerLogger(this);
-  },
-
-  play: function () {
-    var self = this;
-
-    // Listen for `<a-scene>.emit('log')`.
-    this.el.sceneEl.addEventListener('log', function (evt) {
-      if (!evt.detail) { return; }
-      self.receiveLog(evt.detail.message, evt.detail.channel);
-    });
-
-    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-      self.receiveLog('Error: ' + errorMsg);
-    }
-  },
-
-  receiveLog: function (message, channel) {
-    var data = this.data;
-
-    // Coerce to string.
-    if (typeof message !== 'string') {
-      message = JSON.stringify(message);
-    }
-
-    // Match with ID if defined in data or event detail.
-    if (data.channel && channel && data.channel !== channel) { return; }
-
-    // Apply filter if `filter` defined.
-    if (data.filter && message.indexOf(data.filter) === -1) { return; }
-
-    // Add log.
-    this.logs.push(message);
-
-    // Truncate logs if `max` defined.
-    if (data.max && this.logs.length > data.max) { this.logs.shift(); }
-
-    // Update text. Each log gets its own line.
-    this.el.setAttribute('text', {value: this.logs.join('\n')});
-  },
-
-  remove: function () {
-    this.el.removeAttribute('text');
-    this.system.unregisterLogger(this);
-  }
-});
-
-},{}],3:[function(require,module,exports){
+},{"aframe":2}],2:[function(require,module,exports){
 (function (global,setImmediate){
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.AFRAME = f()}})(function(){var define,module,exports;return (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(_dereq_,module,exports){
 var str = Object.prototype.toString
@@ -81799,7 +81682,7 @@ module.exports = getWakeLock();
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"timers":4}],4:[function(require,module,exports){
+},{"timers":3}],3:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -81878,7 +81761,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":5,"timers":4}],5:[function(require,module,exports){
+},{"process/browser.js":4,"timers":3}],4:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
