@@ -6595,6 +6595,7 @@ module.exports = AFRAME.registerComponent('trackpad-controls', {
   },
 
   handleTouchAxis: function handleTouchAxis(e) {
+    if (!this.isMoving) return false;
     var axisData = e.detail.axis;
 
     var velX = 0;
