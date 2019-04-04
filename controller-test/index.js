@@ -1,2 +1,1 @@
-require('aframe');
-require('./components/movement-switcher.js');
+//require('./components/axis-powers.js');
