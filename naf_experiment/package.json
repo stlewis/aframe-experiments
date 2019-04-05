@@ -1,12 +1,13 @@
 {
-  "name": "the-holodeck",
-  "description": "The Holodeck",
+  "name": "aframe-point-n-click",
+  "description": "A-Frame Point N Click Library",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "live-server --port=8081",
+    "start": "node ./easyrtc-server.js",
     "deploy": "ghpages",
     "build": "browserify index.js -o build/bundle.js -t [ babelify --presets [ @babel/preset-env ] ]",
+    "watch": "watchify index.js -o build/bundle.js -t [ babelify --presets [ @babel/preset-env ] ]",
     "release": "browserify index.js -t [ babelify --presets [ @babel/preset-env ] ] | uglifyjs > build/bundle.min.js"
   },
   "devDependencies": {
@@ -16,8 +17,9 @@
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
     "ghpages": "0.0.10",
-    "live-server": "^1.2.0",
-    "uglify-es": "^3.3.9"
+    "live-server": "^1.2.1",
+    "uglify-es": "^3.3.9",
+    "watchify": "^3.11.1"
   },
   "keywords": [
     "aframe",
@@ -28,6 +30,7 @@
     "vr"
   ],
   "dependencies": {
-    "aframe": "^0.8.2"
+    "aframe": "^0.9.0",
+    "networked-aframe": "^0.6.1"
   }
 }

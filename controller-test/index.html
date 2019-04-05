@@ -5,8 +5,9 @@
     <title>The Holodeck</title>
     <meta name="description" content="The Holodeck">
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-    <script src="./components/axis-powers.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
+    <script src="./components/aframe-extras-custom.js"></script>
+    <script src="./components/axis-powers.js"></script>
   </head>
   <body>
     <a-scene>
@@ -26,7 +27,8 @@
 
       <!-- Camera Rig -->
       <a-entity id="rig"
-                movement-controls='speed: 0.1; constrainToNavMesh: true; controls: keyboard;'
+                movement-controls='speed: 0.1; constrainToNavMesh: true; controls: keyboard, gamepad;'
+                gamepad-controls='controller: 1;'
                 rotation='0 0 0'
                 position="0 0 0">
 

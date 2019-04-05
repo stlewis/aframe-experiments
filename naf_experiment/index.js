@@ -1,0 +1,1 @@
+require('networked-aframe')
