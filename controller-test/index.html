@@ -6,7 +6,7 @@
     <meta name="description" content="The Holodeck">
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
-    <script src="./components/aframe-extras-custom.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
     <script src="./components/axis-powers.js"></script>
   </head>
   <body>
@@ -29,7 +29,7 @@
       <a-entity id="rig"
                 movement-controls='speed: 0.1; constrainToNavMesh: true; controls: keyboard, gamepad;'
                 gamepad-controls='controller: 1;'
-                rotation='0 0 0'
+                rotation='0 180 0'
                 position="0 0 0">
 
       <a-entity
@@ -39,7 +39,7 @@
         laser-controls></a-entity>
         <a-entity camera
                   position='0 1.6 0'
-                  rotation='0 90 0'
+                  rotation='0 0 0'
                   look-controls="pointerLockEnabled: true">
           <a-cursor color='red'></a-cursor>
         </a-entity>
@@ -50,8 +50,8 @@
       <a-light type='ambient' color='#fff'></a-light>
 
       <!-- Log Panel -->
-      <a-entity log='max: 10;'
-                geometry="primitive: plane; height: 2; width: 4.5;"
+      <a-entity log='max: 20;'
+                geometry="primitive: plane; height: 8; width: 4.5;"
                 material='color: #000; side: double;'
                 text="color: green;"
                 position='-0.5 2.6 4.99'
@@ -59,7 +59,7 @@
       <!-- End Log Panel -->
 
       <!-- The NavMesh -->
-      <a-gltf-model nav-mesh src='#navmesh' position='0 1 0' visible='false'></a-gltf-model>
+      <a-gltf-model nav-mesh src='#navmesh' position='0 0 0' visible='false'></a-gltf-model>
 
       <!-- End Permanent Fixtures -->
 
