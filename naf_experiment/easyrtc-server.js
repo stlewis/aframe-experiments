@@ -22,21 +22,34 @@ var webServer = http.createServer(app);
 var socketServer = socketIo.listen(webServer, {"log level":1});
 
 var myIceServers = [
-  {"url":"stun:stun.l.google.com:19302"},
-  {"url":"stun:stun1.l.google.com:19302"},
-  {"url":"stun:stun2.l.google.com:19302"},
-  {"url":"stun:stun3.l.google.com:19302"}
-  // {
-  //   "url":"turn:[ADDRESS]:[PORT]",
-  //   "username":"[USERNAME]",
-  //   "credential":"[CREDENTIAL]"
-  // },
-  // {
-  //   "url":"turn:[ADDRESS]:[PORT][?transport=tcp]",
-  //   "username":"[USERNAME]",
-  //   "credential":"[CREDENTIAL]"
-  // }
+   {
+     "url":"stun:ws-turn3.xirsys.com",
+     "username": "yDwDSq0mBEG9ZOOGL6dslhfYqqToC2by_2FJBhwZf49wtWA1GLB-jQbRTdMaAQggAAAAAFynwhRzdGxld2lzMTEyMQ==",
+     "credential":"ef70efbe-57e5-11e9-9d4a-069f0817bf63"
+   },
+
+   {
+     "url":"turn:ws-turn3.xirsys.com:80?transport=udp",
+     "username": "yDwDSq0mBEG9ZOOGL6dslhfYqqToC2by_2FJBhwZf49wtWA1GLB-jQbRTdMaAQggAAAAAFynwhRzdGxld2lzMTEyMQ==",
+     "credential":"ef70efbe-57e5-11e9-9d4a-069f0817bf63"
+   },
+
+   {
+     "url":"turn:ws-turn3.xirsys.com:80?transport=tcp",
+     "username": "yDwDSq0mBEG9ZOOGL6dslhfYqqToC2by_2FJBhwZf49wtWA1GLB-jQbRTdMaAQggAAAAAFynwhRzdGxld2lzMTEyMQ==",
+     "credential":"ef70efbe-57e5-11e9-9d4a-069f0817bf63"
+   },
+
+   {
+     "url":"turn:ws-turn3.xirsys.com:443?transport=tcp",
+     "username": "yDwDSq0mBEG9ZOOGL6dslhfYqqToC2by_2FJBhwZf49wtWA1GLB-jQbRTdMaAQggAAAAAFynwhRzdGxld2lzMTEyMQ==",
+     "credential":"ef70efbe-57e5-11e9-9d4a-069f0817bf63"
+   }
+
 ];
+
+
+
 easyrtc.setOption("appIceServers", myIceServers);
 easyrtc.setOption("logLevel", "debug");
 easyrtc.setOption("demosEnable", false);
